@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nishas Premium Service Bookings - Private Desires & Gallery</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #0b0c10;
+            color: #c5a880;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1f1f2e, #0f0f14);
+            color: #d4af37;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid #2c2c35;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .admin-nav-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #22232a;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        .admin-nav-btn:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+                padding: 3rem 2rem;
+            }
+        }
+
+        .services-section {
+            flex: 2;
+        }
+
+        .services-section h2 {
+            margin-bottom: 1.5rem;
+            color: #d4af37;
+            font-size: 1.8rem;
+            font-weight: 400;
+            border-bottom: 1px solid #2c2c35;
+            padding-bottom: 0.5rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: #15161c;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid #22232a;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.1);
+        }
+
+        .service-banner {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 1px solid #22232a;
+            background: #1c1d24;
+        }
+
+        .service-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .service-card h3 {
+            color: #d4af37;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .service-card p {
+            color: #a89474;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e5c158;
+            margin-bottom: 1rem;
+        }
+
+        .booking-inputs {
+            margin: 1rem 0;
+        }
+
+        .booking-inputs label {
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #c5a880;
+            font-weight: 600;
+        }
+
+        .booking-inputs input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1.25rem;
+            border: 1px solid #333541;
+            border-radius: 8px;
+            background: #1a1b23;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, #d4af37, #aa841b);
+            color: #000;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .cart-sidebar {
+            flex: 1;
+            background: #15161c;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            height: fit-content;
+            border: 1px solid #22232a;
+        }
+
+        .cart-title {
+            border-bottom: 2px solid #2c2c35;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            color: #d4af37;
+            font-weight: 400;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #22232a;
+        }
+
+        .cart-item-details em {
+            font-size: 0.8rem;
+            color: #a89474;
+            display: block;
+            margin: 2px 0;
+            font-style: normal;
+        }
+
+        .remove-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .cart-total {
+            margin-top: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            color: #d4af37;
+        }
+
+        .checkout-btn {
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 8px;
+            width: 100%;
+            margin-top: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .floating-pay-btn {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border-radius: 50%;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            border: 2px solid #d4af37;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+            flex-direction: column;
+        }
+
+        .floating-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            font-size: 0.75rem;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #0b0c10;
+        }
+
+        .gallery-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        .gallery-section h2 {
+            margin-bottom: 1.5rem;
+            color: #d4af37;
+            font-size: 1.8rem;
+            font-weight: 400;
+            border-bottom: 1px solid #2c2c35;
+            padding-bottom: 0.5rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .gallery-card {
+            background: #15161c;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            border: 1px solid #22232a;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            background: #1c1d24;
+        }
+
+        .gallery-caption {
+            padding: 0.8rem;
+            text-align: center;
+            font-size: 0.95rem;
+            font-style: italic;
+            color: #c5a880;
+            background: #1c1d24;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center; align-items: center; padding: 10px;
+        }
+
+        .modal-box {
+            background: #15161c; 
+            padding: 2rem; 
+            border-radius: 16px; 
+            text-align: center; 
+            max-width: 400px; 
+            width: 100%; 
+            border: 1px solid #333541;
+        }
+
+        .modal-box h2 { color: #d4af37; margin-bottom: 0.5rem; font-size: 1.6rem; }
+        .modal-box p { color: #a89474; font-size: 0.95rem; }
+
+        .btn-paid { background-color: #10b981; color: white; width: 100%; padding: 0.75rem; margin-bottom: 0.5rem; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; }
+        .btn-cancel { background-color: #ef4444; color: white; width: 100%; padding: 0.5rem; border-radius: 8px; border: none; cursor: pointer; }
+
+        .admin-modal-box {
+            background: #15161c; 
+            padding: 2rem; 
+            border-radius: 16px; 
+            max-width: 600px; 
+            width: 100%; 
+            border: 1px solid #d4af37;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .admin-order-card {
+            background: #1c1d24;
+            border: 1px solid #333541;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        .approve-btn {
+            background: #10b981;
+            color: #fff;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .bill-box {
+            background: #fff;
+            color: #000;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 450px;
+            width: 100%;
+            text-align: left;
+            font-family: Arial, sans-serif;
+        }
+        .bill-box h2 { color: #1f1f2e; text-align: center; margin-bottom: 1rem; }
+        .bill-details { margin: 1rem 0; font-size: 0.95rem; line-height: 1.5; }
+        .print-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <button class="admin-nav-btn" onclick="openAdminPortal()">Admin Panel</button>
+        <h1>Nishas Premium Service Bookings</h1>
+        <p>Aajaao Mere Paas, Har Raat Hogi Aur Bhi Hot & Spicy 🔥</p>
+    </header>
+
+    <div class="container">
+        <div class="services-section">
+            <h2>Exclusive Hot Services</h2>
+            <div class="services-grid">
+                
+                <!-- Service Item 1 -->
+                <div class="service-card" id="card-1">
+                    <img class="service-banner" src="https://i.imgur.com/ZQ2SVXq.jpeg" alt="Video Call Session">
+                    <div class="service-content">
+                        <h3>Private Video Call</h3>
+                        <p>Aajaao video call par, saare kapde utaar kar tumhare liye ekdum wild aur hot performance dungi, sirf tum aur main akele.</p>
+                        <div class="price">Rs 500</div>
+                        <div class="booking-inputs">
+                            <label>Choose Date:</label>
+                            <input type="date" class="booking-date" id="date-1">
+                            <label>Choose Time:</label>
+                            <input type="time" class="booking-time" id="time-1">
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addSimpleToCart('Private Video Call', 500, 1)">Book Now</button>
+                    </div>
+                </div>
+
+                <!-- Service Item 2 -->
+                <div class="service-card" id="card-2">
+                    <img class="service-banner" src="https://i.imgur.com/XT6fV6i.jpeg" alt="Sex Chat">
+                    <div class="service-content">
+                        <h3>Naughty Sex Chat</h3>
+                        <p>Gandi baatein aur wet fantasies! Aise gande messages aur audio bhejungi ki hathon mein control nahi rahega, poori raat maje lo.</p>
+                        <div class="price">Rs 500</div>
+                        <div class="booking-inputs">
+                            <label>Choose Date:</label>
+                            <input type="date" class="booking-date" id="date-2">
+                            <label>Choose Time:</label>
+                            <input type="time" class="booking-time" id="time-2">
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addSimpleToCart('Naughty Sex Chat', 500, 2)">Book Now</button>
+                    </div>
+                </div>
+
+                <!-- Service Item 3 -->
+                <div class="service-card" id="card-3">
+                    <img class="service-banner" src="https://i.imgur.com/m1FhdDc.jpeg" alt="Cinematic Photoshoot">
+                    <div class="service-content">
+                        <h3>Hot Demand Add-on</h3>
+                        <p>Jo bologe wahi karungi live camera par. Apni har gandi khwahish batao aur apni aankho ke samne sab kuch live dekho.</p>
+                        <div class="price">Rs 200 (each demand)</div>
+                        <div class="booking-inputs">
+                            <label>Choose Date:</label>
+                            <input type="date" class="booking-date" id="date-3">
+                            <label>Choose Time:</label>
+                            <input type="time" class="booking-time" id="time-3">
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addSimpleToCart('Hot Demand Add-on', 200, 3)">Book Now</button>
+                    </div>
+                </div>
+
+                <!-- Service Item 4 -->
+                <div class="service-card" id="card-4">
+                    <img class="service-banner" src="https://i.imgur.com/0ls0zbN.jpeg" alt="Real Meet">
+                    <div class="service-content">
+                        <h3>Close Personal Meet</h3>
+                        <p>Aao mere paas physical romance ke liye. Close body contact, tight hugs aur poori raat bemisaal jism ki garmi ka maza lo.</p>
+                        <div class="price">Rs 5000</div>
+                        <div class="booking-inputs">
+                            <label>Choose Date:</label>
+                            <input type="date" class="booking-date" id="date-4">
+                            <label>Choose Time:</label>
+                            <input type="time" class="booking-time" id="time-4">
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addSimpleToCart('Close Personal Meet', 5000, 4)">Book Now</button>
+                    </div>
+                </div>
+
+                <!-- Service Item 5 -->
+                <div class="service-card" id="card-5">
+                    <img class="service-banner" src="https://i.imgur.com/CIyaSUk.jpeg" alt="Monthly Booking">
+                    <div class="service-content">
+                        <h3>Unlimited Monthly Package</h3>
+                        <p>Poore mahine ke liye sirf tumhari ban jaungi. Jab dil chahe tab gandi baatein, hot video calls aur unlimited private attention lo.</p>
+                        <div class="price">Rs 6000</div>
+                        <div class="booking-inputs">
+                            <label>Choose Date:</label>
+                            <input type="date" class="booking-date" id="date-5">
+                            <label>Choose Time:</label>
+                            <input type="time" class="booking-time" id="time-5">
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addSimpleToCart('Unlimited Monthly Package', 6000, 5)">Book Now</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="cart-sidebar">
+            <h2 class="cart-title">Your Secret Cart (<span id="cart-count">0</span>)</h2>
+            <div id="cart-items">
+                <p style="color: #64748b; text-align: center; padding: 10px;">Cart is empty, kuch hot select karo!</p>
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-amount">Rs 0</span>
+            </div>
+            <button class="checkout-btn" onclick="processPayment()">Proceed to Secret Payment</button>
+        </div>
+    </div>
+
+    <div id="floating-pay" class="floating-pay-btn" onclick="processPayment()">
+        <span id="floating-badge" class="floating-badge">0</span>
+        <span>Pay</span>
+    </div>
+
+    <!-- PHOTO GALLERY SECTION -->
+    <div class="gallery-section">
+        <h2>Nishas Hot Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-card">
+                <img class="gallery-img" src="https://i.imgur.com/BawPTqU.jpeg" alt="Gallery 1">
+                <div class="gallery-caption">Wild & Sexy Look</div>
+            </div>
+            <div class="gallery-card">
+                <img class="gallery-img" src="https://i.imgur.com/MOc8BQv.jpeg" alt="Gallery 2">
+                <div class="gallery-caption">Sizzling Hot Vibe</div>
+            </div>
+            <div class="gallery-card">
+                <img class="gallery-img" src="https://i.imgur.com/L34SHCt.jpeg" alt="Gallery 3">
+                <div class="gallery-caption">Sensual Curves</div>
+            </div>
+            <div class="gallery-card">
+                <img class="gallery-img" src="https://i.imgur.com/Lljjhdr.jpeg" alt="Gallery 4">
+                <div class="gallery-caption">Unstoppable Desires</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="payment-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h2>Scan & Pay</h2>
+            <p style="margin-top: 5px;">Amount to Pay: <strong id="modal-total" style="color: #e5c158; font-size: 1.3rem;">Rs 0</strong></p>
+            <img id="qr-image" src="" alt="Payment QR Code" style="width: 220px; height: 220px; margin: 1.5rem 0; border: 1px solid #333541; padding: 6px; border-radius: 12px; background: white;">
+            <p style="font-size: 0.8rem; color: #a89474; margin-bottom: 1.25rem;">Scan QR code via UPI App to pay, then tap confirm below.</p>
+            <button class="btn-paid" onclick="submitPaymentProof()">I Have Paid</button>
+            <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <div id="admin-login-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h2>Admin Login</h2>
+            <p style="margin-bottom: 1rem;">Enter admin password to authorize this device.</p>
+            <input type="password" id="admin-pass-input" placeholder="Enter Password" style="width:100%; padding:0.75rem; margin-bottom:1rem; border:1px solid #333541; border-radius:8px; background:#1a1b23; color:#fff;">
+            <button class="btn-paid" onclick="verifyAdmin()">Login</button>
+            <button class="btn-cancel" onclick="closeAdminLogin()">Cancel</button>
+        </div>
+    </div>
+
+    <div id="admin-dashboard-modal" class="modal-overlay">
+        <div class="admin-modal-box">
+            <h2 style="color: #d4af37; margin-bottom: 1rem;">Admin Dashboard - Pending Bookings</h2>
+            <div id="admin-orders-list">
+                <p style="color: #a89474; text-align: center;">No pending bookings.</p>
+            </div>
+            <button class="btn-cancel" onclick="closeAdminDashboard()" style="margin-top:1rem;">Close Dashboard</button>
+        </div>
+    </div>
+
+    <div id="bill-modal" class="modal-overlay">
+        <div class="bill-box">
+            <h2>NISHA'S EXCLUSIVE INVOICE</h2>
+            <div class="bill-details" id="bill-content"></div>
+            <button class="print-btn" onclick="window.print()">Print / Save Bill</button>
+            <button class="btn-cancel" onclick="closeBill()" style="margin-top: 0.5rem; width:100%;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+        let pendingOrders = [];
+        let completedOrders = [];
+        let currentOrderId = null;
+
+        function addSimpleToCart(name, price, cardIndex) {
+            const dateInput = document.getElementById(`date-${cardIndex}`).value;
+            const timeInput = document.getElementById(`time-${cardIndex}`).value;
+
+            if (!dateInput || !timeInput) {
+                alert("Pehle date aur time select karo jaan!");
+                return;
+            }
+
+            cart.push({
+                cartItemId: Date.now(),
+                name: name,
+                price: price,
+                date: dateInput,
+                time: timeInput
+            });
+            
+            updateCartUI();
+        }
+
+        function removeFromCart(uniqueId) {
+            cart = cart.filter(item => item.cartItemId !== uniqueId);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCountElement = document.getElementById('cart-count');
+            const cartTotalElement = document.getElementById('cart-total-amount');
+            const floatingPay = document.getElementById('floating-pay');
+            const floatingBadge = document.getElementById('floating-badge');
+            
+            cartCountElement.innerText = cart.length;
+            floatingBadge.innerText = cart.length;
+
+            if (cart.length > 0) {
+                floatingPay.style.display = 'flex';
+            } else {
+                floatingPay.style.display = 'none';
+            }
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="color: #64748b; text-align: center; padding: 10px;">Cart is empty, kuch hot select karo!</p>';
+                cartTotalElement.innerText = "Rs 0";
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                total += item.price;
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-details">
+                            <strong style="color: #fff;">${item.name}</strong>
+                            <em>${item.date} | ${item.time}</em>
+                            <span style="color:#e5c158; font-weight:600;">Rs ${item.price}</span>
+                        </div>
+                        <button class="remove-btn" onclick="removeFromCart(${item.cartItemId})">X</button>
+                    </div>
+                `;
+            });
+
+            cartItemsContainer.innerHTML = html;
+            cartTotalElement.innerText = `Rs ${total}`;
+        }
+
+        function processPayment() {
+            if (cart.length === 0) {
+                alert("Cart khali hai, pehle koi service chun lo!");
+                return;
+            }
+            const totalAmount = document.getElementById('cart-total-amount').innerText;
+            document.getElementById('modal-total').innerText = totalAmount;
+            
+            const uppiString = "upi://pay?pa=7980883217@ptsbi&pn=Partha%20Sarathi%20Bhattacharjee";
+            document.getElementById('qr-image').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(uppiString)}`;
+            document.getElementById('payment-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('payment-modal').style.display = 'none';
+        }
+
+        function submitPaymentProof() {
+            currentOrderId = 'NISHA-' + Math.floor(100000 + Math.random() * 900000);
+            let total = document.getElementById('cart-total-amount').innerText;
+            
+            let newOrder = {
+                id: currentOrderId,
+                items: [...cart],
+                total: total,
+                date: new Date().toLocaleString()
+            };
+
+            pendingOrders.push(newOrder);
+            closeModal();
+            cart = [];
+            updateCartUI();
+
+            alert("Payment proof mil gaya! Admin ke approve hote hi tumhara secret bill mil jayega.");
+        }
+
+        function openAdminPortal() {
+            let isAuthorized = localStorage.getItem("admin_device_authorized");
+            if (isAuthorized === "true") {
+                openAdminDashboard();
+            } else {
+                document.getElementById('admin-login-modal').style.display = 'flex';
+            }
+        }
+
+        function closeAdminLogin() {
+            document.getElementById('admin-login-modal').style.display = 'none';
+            document.getElementById('admin-pass-input').value = '';
+        }
+
+        function verifyAdmin() {
+            let pass = document.getElementById('admin-pass-input').value;
+            if (pass === "PARTHA@007") {
+                localStorage.setItem("admin_device_authorized", "true");
+                closeAdminLogin();
+                openAdminDashboard();
+            } else {
+                alert("Galat password hai!");
+            }
+        }
+
+        function openAdminDashboard() {
+            renderAdminOrders();
+            document.getElementById('admin-dashboard-modal').style.display = 'flex';
+        }
+
+        function closeAdminDashboard() {
+            document.getElementById('admin-dashboard-modal').style.display = 'none';
+        }
+
+        function renderAdminOrders() {
+            let container = document.getElementById('admin-orders-list');
+            if (pendingOrders.length === 0) {
+                container.innerHTML = '<p style="color: #a89474; text-align: center;">No pending bookings.</p>';
+                return;
+            }
+
+            let html = '';
+            pendingOrders.forEach((order, index) => {
+                let itemsList = order.items.map(i => `<li>${i.name} (${i.date} | ${i.time}) - Rs ${i.price}</li>`).join('');
+                html += `
+                    <div class="admin-order-card">
+                        <strong>Booking ID: ${order.id}</strong><br>
+                        <small style="color:#a89474;">Time: ${order.date}</small>
+                        <ul style="margin: 5px 0 10px 15px; color:#fff; font-size:0.9rem;">
+                            ${itemsList}
+                        </ul>
+                        <strong style="color:#e5c158;">Total: ${order.total}</strong><br>
+                        <button class="approve-btn" onclick="approveOrder(${index})">Approve & Generate Bill</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function approveOrder(index) {
+            let approvedOrder = pendingOrders.splice(index, 1)[0];
+            completedOrders.push(approvedOrder);
+            closeAdminDashboard();
+            showBill(approvedOrder);
+        }
+
+        function showBill(order) {
+            let itemsHtml = order.items.map(i => `<tr><td>${i.name} (${i.date} - ${i.time})</td><td style="text-align:right;">Rs ${i.price}</td></tr>`).join('');
+            
+            let billHtml = `
+                <p><strong>Booking ID:</strong> ${order.id}</p>
+                <p><strong>Date:</strong> ${order.date}</p>
+                <hr style="margin: 10px 0; border:0; border-top:1px solid #ddd;">
+                <table style="width:100%; margin-bottom:10px;">
+                    <tr><th>Service</th><th style="text-align:right;">Price</th></tr>
+                    ${itemsHtml}
+                </table>
+                <hr style="margin: 10px 0; border:0; border-top:1px solid #ddd;">
+                <h3 style="text-align:right; color:#10b981;">Total Paid: ${order.total}</h3>
+                <p style="text-align:center; margin-top:15px; font-size:0.85rem; color:#666;">Status: Approved by Nisha ❤️</p>
+            `;
+
+            document.getElementById('bill-content').innerHTML = billHtml;
+            document.getElementById('bill-modal').style.display = 'flex';
+        }
+
+        function closeBill() {
+            document.getElementById('bill-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
